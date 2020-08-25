@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,300;1,900&display=swap");
+
+.header_bg {
+  background-image: url("../img/bg-1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.bg-white {
+  background-color: #ebe8ed;
+}
+#nav-link {
+  font-family: "Poppins", sans-serif;
+  color: #2e1753 !important;
+  font-size: 16px;
+}
+.workshop_item {
+  border: 1px solid #f4f4f9;
+  border-radius: 20px;
+  background-color: white;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(12, 0, 46, 0.04);
+  box-shadow: 0px 2px 4px 0px rgba(12, 0, 46, 0.04);
+  padding: 30px;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  margin-bottom: 30px;
+}
+
+.btn_hover {
+  overflow: hidden;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 14px;
+  /* font-family: "Poppins", sans-serif; */
+  z-index: 1;
+  cursor: pointer;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+.btn_hover:hover {
+  color: #fff;
+}
+
+.add_btn {
+  display: inline-block;
+  padding: 14px 40px;
+  border-radius: 45px !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  background-color: #2e1753 !important;
+  color: #fff !important;
+}
+
+.btn:active:focus,
+.btn.active:focus,
+.add_btn:hover,
+.add_btn:active:focus,
+.add_btn.active:focus {
+  color: #fff !important;
+  background-color: #c5198c !important;
+  /* border: solid 5px #2e1753 !important; */
+}
+
+.signup_btn {
+  display: inline-block;
+  padding: 14px 40px;
+  border-radius: 45px !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif;
+  z-index: 1;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  background-color: #c5198c !important;
+  color: #fff !important;
+}
+
+.signup_btn:hover,
+.signup_btn:active:focus {
+  color: #fff !important;
+  background-color: #2e1753 !important;
+  /* border: solid 5px #2e1753 !important; */
+}
+.form-control {
+  border-radius: 45px !important;
+}
+
+.card-footer {
+  background-color: #fff !important;
+}
