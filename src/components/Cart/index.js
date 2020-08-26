@@ -7,7 +7,7 @@ class ShoppingCart extends Component {
   totalPrice = () => {
     let total = 0;
     this.props.products.forEach((item) => {
-      total = total + parseFloat(item.price);
+      total = total + parseFloat(item.price) * parseFloat(item.quantity);
     });
     return total.toFixed(3);
   };
@@ -28,10 +28,14 @@ class ShoppingCart extends Component {
               <div className="container-fluid mb-4 mt-4 pl-4 pr-4  ">
                 {getOrderItem.length ? (
                   <div className="row m-4">
-                    <div className="col-4">
-                      <strong>Workshop</strong>
+                    <div className="col-3">
+                      <strong>Item</strong>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
+                      {" "}
+                      <strong>Quantity</strong>
+                    </div>
+                    <div className="col-3">
                       {" "}
                       <strong>Price</strong>
                     </div>

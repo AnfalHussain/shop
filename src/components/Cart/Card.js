@@ -12,9 +12,12 @@ class Card extends Component {
   render() {
     return (
       <div className="row pt-3 pb-3">
-        <div className="col-4">{this.props.orderItem.name}</div>
-        <div className="col-4">{this.props.orderItem.price} KWD</div>
-        <div className="col-4">
+        <div className="col-3">{this.props.orderItem.name}</div>
+        <div className="col-3">{this.props.orderItem.quantity}</div>
+        <div className="col-3">
+          {this.props.orderItem.price * this.props.orderItem.quantity} KWD{" "}
+        </div>
+        <div className="col-3">
           <div className="d-flex justify-content-end">
             <FaTrash onClick={() => this.handleClick()} size={20} />
           </div>

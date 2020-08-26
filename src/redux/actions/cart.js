@@ -26,7 +26,8 @@ export const removeItem = (item) => ({
 
 export const checkout = (products, history) => async (dispatch) => {
   try {
-    const res = await instance.post("register/", products);
+    console.log("products", products);
+    const res = await instance.post("orders/", products);
     dispatch({ type: CHECKOUT, payload: res.data });
     if (history) {
       history.replace("/successful");

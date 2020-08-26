@@ -5,60 +5,89 @@ import { connect } from "react-redux";
 import { checkout } from "../../redux/actions";
 import Card from "./Card";
 
+//Actions
+import { resetErrors, setProducts } from "../../redux/actions";
 class Checkout extends Component {
+  state = {
+    area: "",
+    street: "",
+    block: "",
+    optional: "",
+
+    total: 0,
+  };
+  componentWillUnmount() {
+    if (this.props.errors.length) this.props.resetErrors();
+  }
   totalPrice = () => {
     let total = 0;
     this.props.products.forEach((item) => {
-      total = total + parseFloat(item.price);
+      total = total + parseFloat(item.price) * parseFloat(item.quantity);
     });
     return total.toFixed(3);
   };
 
-  handleClick = () => {
-    // let newOrders = {
-    //   carts: this.props.products,
-    // };
-    this.props.checkout({ carts: this.props.products }, this.props.history);
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  // submitHandler = () => {
+  //   newOrders = {
+  //     baskets: this.props.products,
+  //     address: {
+  //       area: this.state.area,
+  //       street: this.state.street,
+  //       block: this.state.block,
+  //       optional: this.state.optional,
+  //     },
+  //   };
+  //   return newOrders;
+  // };
+
+  handleClick = async (e) => {
+    e.preventDefault();
+
+    const newOrders = {
+      baskets: this.props.products,
+      address: {
+        area: this.state.area,
+        street: this.state.street,
+        block: this.state.block,
+        optional: this.state.optional,
+      },
+    };
+    console.log("newOrders", newOrders);
+
+    await this.props.checkout(newOrders, this.props.history);
+    this.props.setProducts();
   };
 
   render() {
-    if (!this.props.user) return <Redirect to="/login" />;
+    const errors = this.props.errors;
+
     const getOrderItem = this.props.products.map((item) => (
       <Card key={item.name} orderItem={item} />
     ));
-    const profile = this.props.profile;
 
     return (
       <div className="container mt-5 mb-5">
         <div id="loginCard" className="card col-8 mx-auto mt-5 ">
           <div className="card-body">
             <div className="text-center">
-              <h1 className="mt-5">Registration Summary</h1>
-            </div>
-            <div className="row m-4">
-              Applicant Name:{" "}
-              <span>
-                {" "}
-                {`${profile.first_name} ${profile.middle_name} ${profile.last_name}`}
-              </span>
-            </div>
-            <div className="row m-4">
-              Civil Id: <span> {profile.civil_id_number}</span>
-            </div>
-            <div className="row m-4">
-              Mobile: <span>{profile.mobile_number}</span>{" "}
-            </div>
-            <div className="row m-4">
-              Email:<span> {profile.email}</span>
+              <h1 className="mt-5">Summary</h1>
             </div>
             <div className="container-fluid mb-4 mt-4 pl-4 pr-4  ">
               <div className="row m-4">
-                <div className="col-4">
-                  <strong> Workshop</strong>
+                <div className="col-3">
+                  <strong>Item</strong>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                   {" "}
-                  <strong>Price </strong>
+                  <strong>Quantity</strong>
+                </div>
+                <div className="col-3">
+                  {" "}
+                  <strong>Price</strong>
                 </div>
                 <div className="col-12">
                   <div className="table-responsive">
@@ -77,18 +106,72 @@ class Checkout extends Component {
                     </div>
                   </div>
                 </div>
-
-                <div className="col mb-2 mt-5">
-                  <div className="row d-flex justify-content-end">
+                <div className="col-12">
+                  <form onSubmit={this.handleClick}>
+                    {!!errors.length && (
+                      <div className="alert alert-danger" role="alert">
+                        {errors.map((error) => (
+                          <p key={error}>{error}</p>
+                        ))}
+                      </div>
+                    )}
                     <div className="text-center">
-                      <button
-                        onClick={() => this.handleClick()}
-                        className="btn btn-lg btn-block btn signup_btn text-uppercase"
-                      >
-                        Checkout
-                      </button>
+                      <h2 className="mt-5">Address</h2>
                     </div>
-                  </div>
+                    <div className="form-group">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Area"
+                        name="area"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Street"
+                        name="street"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Block"
+                        name="block"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="optional"
+                        name="optional"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>E.g. +96599991234 </label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Phone number"
+                        name="phone_number"
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+
+                    <input
+                      id="registerbtn"
+                      className="btn  btn-block add_btn"
+                      type="submit"
+                      value="Checkout"
+                    />
+                  </form>
                 </div>
               </div>
             </div>
@@ -101,6 +184,8 @@ class Checkout extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     checkout: (products, history) => dispatch(checkout(products, history)),
+    setProducts: () => dispatch(setProducts()),
+    resetErrors: () => dispatch(resetErrors()),
   };
 };
 
@@ -108,8 +193,7 @@ const mapStateToProps = (state) => {
   return {
     orders: state.cartReducer.orders,
     products: state.cartReducer.products,
-    user: state.authReducer.user,
-    profile: state.authReducer.profile,
+    errors: state.errors.errors,
   };
 };
 

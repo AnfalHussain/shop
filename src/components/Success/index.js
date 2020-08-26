@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 
 class Success extends Component {
   render() {
-    if (!this.props.user) return <Redirect to="/login" />;
-
     const orders = this.props.orders;
 
     return (
@@ -13,15 +11,15 @@ class Success extends Component {
         <div id="loginCard" className="card col-8 mx-auto mt-5 ">
           <div className="card-body">
             <div className="text-center ">
-              <h1 className="mt-5">Registration was Successful</h1>
+              <h1 className="mt-5">Purchase was Successful</h1>
             </div>
             <div className="flex justify-content-center">
               <div className="row pt-5">
                 <div className="col-4">
-                  <strong> Payment Status: </strong>
+                  <strong> Order Status: </strong>
                 </div>
                 <div className="col-4">
-                  <span className="pl-3">{orders[0].payment_status}</span>
+                  <span className="pl-3">{orders[0].status}</span>
                 </div>
               </div>
 
@@ -30,7 +28,39 @@ class Success extends Component {
                   <strong> Reference Number: </strong>{" "}
                 </div>
                 <div className="col-4">
-                  <span className="pl-3">{orders[0].reference_number}</span>
+                  <span className="pl-3">{orders[0].order_ref}</span>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-4">
+                  <strong> Address: </strong>{" "}
+                </div>
+                <div className="col-4">
+                  <span className="pl-3">
+                    {" "}
+                    <strong> Area: </strong> {orders[0].address.area}
+                  </span>
+                  <br />
+                  <span className="pl-3">
+                    {" "}
+                    <strong> Street: </strong> {orders[0].address.street}
+                  </span>
+                  <br />
+                  <span className="pl-3">
+                    {" "}
+                    <strong> Block: </strong> {orders[0].address.block}
+                  </span>
+                  <br />
+                  <span className="pl-3">
+                    {" "}
+                    <strong> Optional: </strong> {orders[0].address.optional}
+                  </span>
+                  <br />
+                  <span className="pl-3">
+                    {" "}
+                    <strong> Phone Number: </strong>{" "}
+                    {orders[0].address.phone_number}
+                  </span>
                 </div>
               </div>
 

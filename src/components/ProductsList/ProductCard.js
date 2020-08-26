@@ -42,44 +42,26 @@ class ProductCard extends Component {
         <>
           <button
             onClick={() => this.state.quantity > 0 && this.changeQuantity(-1)}
-            id="add-btn"
           >
             -
           </button>
-          <input id="add-quan1" type="text" value={this.state.quantity} />
-          <button id="add-btn" onClick={() => this.changeQuantity(1)}>
-            +
-          </button>
+          <input type="text" value={this.state.quantity} />
+          <button onClick={() => this.changeQuantity(1)}>+</button>
           <br />
-          {/* <button
-            id="btn-cart"
-            className="btn btn-success mt-2"
-            onClick={() => this.state.quantity !== 0 && this.handleClick()}
-          >
-            Add to cart{" "}
-          </button> */}
+
           <div
             className="btn btn_hover add_btn"
             onClick={() => this.state.quantity !== 0 && this.handleClick()}
           >
             <RiAddCircleFill style={{ color: "white" }} size={30} /> Add To Cart
           </div>
-
-          {/* {this.limited()} */}
         </>
       );
     } else {
       return (
-        <>
-          {/* <button className="btn btn-secondary mt-2 rounded-pill" disabled>
-            Out of Stock
-          </button> */}
-
-          <div className="btn btn_hover add_btn" disabled>
-            <RiAddCircleFill style={{ color: "white" }} size={30} /> Add To Out
-            of Stock
-          </div>
-        </>
+        <div className="  disabled_btn" disabled>
+          Out of Stock
+        </div>
       );
     }
   };
@@ -96,10 +78,7 @@ class ProductCard extends Component {
     this.setState({ quantity: 0 });
   };
   render() {
-    const { product, addItem } = this.props;
-    // const item = this.props.products.find((item) => item.id === product.id);
-
-    // let counter = `${item && item.quantity} in basket`;
+    const { product } = this.props;
 
     return (
       <div className=" row  align-items-center pb-5 workshop_item">

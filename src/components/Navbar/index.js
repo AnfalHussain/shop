@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Components
-// import AuthButton from "./AuthButton";
+import AuthButton from "./AuthButton";
 import CartBtn from "./CartButton";
 
 //Logo
 import icon from "../../assets/logo/lightLogo4.png";
 
-const NavBar = (props) => {
+const NavBar = ({ user }) => {
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white nav justify-content-between d-flex">
       <div className="container">
@@ -27,8 +27,8 @@ const NavBar = (props) => {
           className="collapse navbar-collapse justify-content-end"
           id="navbarText"
         >
-          {/* <AuthButton /> */}
-          <CartBtn />
+          <AuthButton />
+          {!user && <CartBtn />}
         </div>
       </div>
     </nav>
