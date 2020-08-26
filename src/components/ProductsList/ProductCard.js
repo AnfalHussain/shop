@@ -6,41 +6,123 @@ import { connect } from "react-redux";
 import { addItem } from "../../redux/actions";
 
 class ProductCard extends Component {
-  render() {
-    const { id, name, description, image, price, addItem } = this.props;
-    const handleClick = () => {
-      const newItem = {
-        id: id,
-        name: name,
-        price: price,
-      };
-      addItem(newItem);
+  state = {
+    quantity: 0,
+  };
+  changeQuantity = (number) => {
+    if (this.state.quantity >= 0) {
+      if (
+        this.props.products.find(
+          (product) => product.id === this.props.product.id
+        )
+      ) {
+        let quantityInCart = this.props.products.find(
+          (product) => product.id === this.props.product.id
+        ).quantity;
+
+        if (
+          quantityInCart + number + this.state.quantity >
+          this.props.product.stock
+        ) {
+          return alert("Exceeded stock!");
+        } else {
+          const newQuantity = this.state.quantity + number;
+          this.setState({ quantity: newQuantity });
+        }
+      } else if (number + this.state.quantity > this.props.product.stock) {
+        return alert("Exceeded stock!");
+      }
+      const newQuantity = this.state.quantity + number;
+      this.setState({ quantity: newQuantity });
+    }
+  };
+  ShowCounter = () => {
+    if (this.props.product.stock !== 0) {
+      return (
+        <>
+          <button
+            onClick={() => this.state.quantity > 0 && this.changeQuantity(-1)}
+            id="add-btn"
+          >
+            -
+          </button>
+          <input id="add-quan1" type="text" value={this.state.quantity} />
+          <button id="add-btn" onClick={() => this.changeQuantity(1)}>
+            +
+          </button>
+          <br />
+          {/* <button
+            id="btn-cart"
+            className="btn btn-success mt-2"
+            onClick={() => this.state.quantity !== 0 && this.handleClick()}
+          >
+            Add to cart{" "}
+          </button> */}
+          <div
+            className="btn btn_hover add_btn"
+            onClick={() => this.state.quantity !== 0 && this.handleClick()}
+          >
+            <RiAddCircleFill style={{ color: "white" }} size={30} /> Add To Cart
+          </div>
+
+          {/* {this.limited()} */}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {/* <button className="btn btn-secondary mt-2 rounded-pill" disabled>
+            Out of Stock
+          </button> */}
+
+          <div className="btn btn_hover add_btn" disabled>
+            <RiAddCircleFill style={{ color: "white" }} size={30} /> Add To Out
+            of Stock
+          </div>
+        </>
+      );
+    }
+  };
+  handleClick = () => {
+    const newItem = {
+      id: this.props.product.id,
+      name: this.props.product.name,
+      price: this.props.product.price,
+      quantity: this.state.quantity,
+      img: this.props.product.img,
     };
+    console.log("quantity", this.state.quantity);
+    this.props.addItem(newItem);
+    this.setState({ quantity: 0 });
+  };
+  render() {
+    const { product, addItem } = this.props;
+    // const item = this.props.products.find((item) => item.id === product.id);
+
+    // let counter = `${item && item.quantity} in basket`;
+
     return (
       <div className=" row  align-items-center pb-5 workshop_item">
         <div className="col-md-6 col-xs-12 text-center">
-          <img src={image} alt="workshop" height={300} />
+          <img src={product.img} alt={product.name} height={300} />
         </div>{" "}
         <div className="col-md-6 col-xs-12">
           <div>
-            <h1>{name}</h1>
+            <h1>{product.name}</h1>
           </div>
           <div>
-            <p>{description}</p>
+            <p>{product.description}</p>
           </div>
           <div className="d-flex justify-content-between">
             <p>
               {" "}
               <AiFillDollarCircle style={{ color: "#c5198c" }} size={30} />
               <span className="pl-3"></span>
-              {price} KD
+              {product.price} KD
             </p>
 
             <div>
-              <div className="btn btn_hover add_btn" onClick={handleClick}>
-                <RiAddCircleFill style={{ color: "white" }} size={30} /> Add To
-                Cart
-              </div>
+              <div>{this.ShowCounter()}</div>
             </div>
           </div>
         </div>

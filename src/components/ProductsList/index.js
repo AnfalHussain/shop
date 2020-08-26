@@ -6,20 +6,12 @@ import Header from "./Header";
 import ProductCard from "./ProductCard";
 
 const ProductsList = ({ products }) => {
-  const productsCards = products.map((product, index) => (
-    <ProductCard
-      key={`${index}`}
-      id={product.id}
-      name={product.name}
-      description={product.description}
-      price={product.price}
-      image={product.img}
-    />
+  const productsCards = products.map((product) => (
+    <ProductCard key={`${product.id}`} product={product} products={products} />
   ));
   return (
     <div>
       <Header />
-
       {products ? (
         <div className="container">{productsCards}</div>
       ) : (
