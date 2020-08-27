@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 //components
 import OrderCard from "./OrderCard";
 class Admin extends Component {
   render() {
+    if (!this.props.user) return <Redirect to="/" />;
+
     const newOrders = this.props.newOrders;
     const ordersList = newOrders.map((item) => (
       <OrderCard key={item.id} item={item} />
@@ -46,6 +49,7 @@ class Admin extends Component {
 const mapStateToProps = (state) => {
   return {
     newOrders: state.adminReducer.newOrders,
+    user: state.authReducer.user,
   };
 };
 
