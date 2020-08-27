@@ -13,7 +13,7 @@ class Checkout extends Component {
     street: "",
     block: "",
     optional: "",
-
+    phone_number: "",
     total: 0,
   };
   componentWillUnmount() {
@@ -53,6 +53,7 @@ class Checkout extends Component {
         area: this.state.area,
         street: this.state.street,
         block: this.state.block,
+        phone_number: this.state.phone_number,
         optional: this.state.optional,
       },
     };

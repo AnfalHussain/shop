@@ -11,4 +11,6 @@ export {
 
 export { setErrors, resetErrors } from "./errors";
 
+export { editOrder, setNewOrders } from "./admin";
+
 export { addItem, removeItem, checkout, changeQuantity } from "./cart";

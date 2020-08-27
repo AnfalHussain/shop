@@ -26,7 +26,7 @@ class Login extends Component {
   };
 
   render() {
-    if (this.props.user) return <Redirect to="/" />;
+    if (this.props.user) return <Redirect to="/admin" />;
 
     const errors = this.props.errors;
     return (
@@ -71,16 +71,7 @@ class Login extends Component {
               />
             </form>
           </div>
-          <div className="card-footer pb-4">
-            <div className="card-title pt-2 pb-2 text-center">
-              <span>Do not have an account?</span>
-            </div>
-
-            <a href="/signup" className="btn  btn-block signup_btn">
-              Create an account
-            </a>
-          </div>
-        </div>{" "}
+        </div>
       </div>
     );
   }

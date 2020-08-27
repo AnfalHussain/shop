@@ -7,7 +7,6 @@ import {
 import instance from "./instance";
 
 export const addItem = (item) => {
-  console.log("addItem clickked", item);
   return {
     type: ADD_TO_CART,
     payload: item,

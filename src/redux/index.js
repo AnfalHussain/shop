@@ -5,7 +5,7 @@ import { checkForExpiredToken } from "./actions";
 import thunk from "redux-thunk";
 
 // Actions
-import { setProducts } from "./actions";
+import { setProducts, setNewOrders } from "./actions";
 
 const store = createStore(
   rootReducer,
@@ -13,6 +13,7 @@ const store = createStore(
 );
 
 store.dispatch(setProducts());
+store.dispatch(setNewOrders());
 store.dispatch(checkForExpiredToken());
 
 export default store;
